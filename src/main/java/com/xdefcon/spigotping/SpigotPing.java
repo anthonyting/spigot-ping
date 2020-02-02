@@ -2,7 +2,7 @@ package com.xdefcon.spigotping;
 
 import com.xdefcon.spigotping.commands.PingCommand;
 import com.xdefcon.spigotping.commands.PingReloadCommand;
-import com.xdefcon.spigotping.listeners.ChatListener;
+import com.xdefcon.spigotping.listeners.PingListener;
 import com.xdefcon.spigotping.listeners.EssentialsListener;
 import com.xdefcon.spigotping.tablist.PingTabList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,7 +20,7 @@ public class SpigotPing extends JavaPlugin {
         this.saveDefaultConfig();
         this.getCommand("ping").setExecutor(new PingCommand(this));
         this.getCommand("pingreload").setExecutor(new PingReloadCommand(this));
-        getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new PingListener(), this);
         if (getServer().getPluginManager().getPlugin("Essentials") != null && getServer().getPluginManager().isPluginEnabled("Essentials")) {
             getServer().getPluginManager().registerEvents(new EssentialsListener(), this);
         }
