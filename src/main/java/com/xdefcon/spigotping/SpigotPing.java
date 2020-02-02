@@ -1,11 +1,11 @@
 package com.xdefcon.spigotping;
 
-import com.xdefcon.spigotping.bstats.Metrics;
 import com.xdefcon.spigotping.commands.PingCommand;
 import com.xdefcon.spigotping.commands.PingReloadCommand;
+import com.xdefcon.spigotping.listeners.ChatListener;
+import com.xdefcon.spigotping.listeners.EssentialsListener;
 import com.xdefcon.spigotping.tablist.PingTabList;
 import org.bukkit.plugin.java.JavaPlugin;
-
 
 public class SpigotPing extends JavaPlugin {
     private static SpigotPing instance;
@@ -20,8 +20,11 @@ public class SpigotPing extends JavaPlugin {
         this.saveDefaultConfig();
         this.getCommand("ping").setExecutor(new PingCommand(this));
         this.getCommand("pingreload").setExecutor(new PingReloadCommand(this));
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        if (getServer().getPluginManager().getPlugin("Essentials") != null && getServer().getPluginManager().isPluginEnabled("Essentials")) {
+            getServer().getPluginManager().registerEvents(new EssentialsListener(), this);
+        }
         this.registerTasks();
-        Metrics metrics = new Metrics(this);
     }
 
     @Override
@@ -41,8 +44,8 @@ public class SpigotPing extends JavaPlugin {
         if (!this.getConfig().getBoolean("tablist.enabled")) {
             this.getLogger().info("The tablist is disabled, the ping will not be shown as a prefix. You can change this option in the config.");
         } else {
-            Long delay = this.getConfig().getLong("tablist.update-delay");
-            new PingTabList(this).runTaskTimerAsynchronously(this, delay * 20, delay * 20);
+            long delay = this.getConfig().getLong("tablist.update-delay");
+            new PingTabList().runTaskTimerAsynchronously(this, delay * 20, delay * 20);
             this.getLogger().info("TabList is enabled, task added with a delay of " + delay + " second/s.");
         }
     }
