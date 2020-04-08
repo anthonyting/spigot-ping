@@ -6,4 +6,4 @@ Spigot page: [spigotmc.org/resources/spigotping.24419/](https://www.spigotmc.org
 ## Notes
 This plugin was originally made by xDefcon and the original repo is available [here](https://github.com/xDefcon/spigot-ping).\
 This fork fixes some compatibility issues with Essentials nicknames.\
-Build with `mvn clean install`. You may need to run [BuildTools](https://www.spigotmc.org/wiki/buildtools) first. The output will be in `target/` in the current directory
+Build with `mvn clean install`.
