@@ -1,10 +1,27 @@
 name: SpigotPing
 main: com.xdefcon.spigotping.SpigotPing
 author: xDefcon
-version: "2.5"
+version: "2.51"
+api-version: "1.17"
 description: "SpigotPing a simple and customizable plugin to show your ping."
 commands:
     ping:
       description: The main command for SpigotPing.
+      permission: spigotping.ping
+      usage: /<command> [player]
     pingreload:
       description: Reloads the plugin.
+      permission: spigotping.reload
+permissions:
+  spigotping.pingreload:
+    description: Allow pingreload command
+    default: op
+  spigotping.ping:
+    description: Allow ping command
+    default: true
+  spigotping.*:
+    description: Wildcard permission
+    default: op
+    children:
+      spigotping.ping: true
+      spigotping.pingreload: true
