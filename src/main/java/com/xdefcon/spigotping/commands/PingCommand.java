@@ -29,7 +29,6 @@ public class PingCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command c, String label, String[] args) {
         String defaultNoPermMessage = "You do not have access to this command.";
 
-
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
                 plugin.getLogger().info(ChatColor.translateAlternateColorCodes((char) 12, "This command is only executable as a Player."));
@@ -73,7 +72,11 @@ public class PingCommand implements CommandExecutor {
                     .replace("%ping%", "" + PingUtil.getPing(targetP))
                     .replace("%target%", targetP.getName())));
         }
+        if (plugin.getConfig().getBoolean("sound-manager.enabled")) {
+            if (sender instanceof Player) {
+                SoundUtil.playSound((Player)sender, plugin.getConfig().getString("sound-manager.sound-type"));
+            }
+        }
         return true;
     }
-
 }
